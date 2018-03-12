@@ -1,0 +1,2 @@
+# FINT-informasjonsmodell-metamodell
+
