@@ -1,0 +1,8 @@
+*.ldb
+generated-documentation.html
+
+xsd/ValideringAvXsd/.vs/*
+xsd/ValideringAvXsd/obj/*
+xsd/ValideringAvXsd/bin/*
+xsd/ValideringAvXsd/*.xsd
+*.log
