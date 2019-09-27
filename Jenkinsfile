@@ -51,7 +51,7 @@ pipeline {
         tag pattern: "v\\d+\\.\\d+\\.\\d+(-\\w+-\\d+)?", comparator: "REGEXP"
       }
       steps {
-        sh "docker run -i -v \$PWD:/src fint/fint-consumer:2.2.0-rc-1 --repo fint-informasjonsmodell-metamodell --filename FINT-metamodell.xml --tag ${TAG_NAME} setup --name metamodell --component metamodell"
+        sh "docker run -i -v \$PWD:/src fint/fint-consumer:2.2.0-rc-1 --repo fint-informasjonsmodell-metamodell --filename FINT-metamodell.xml --tag ${TAG_NAME} setup --name metamodell --component metamodell --branch newcache"
         stash(name: 'consumer', includes: 'fint-consumer-metamodell/**')
       }      
     }
@@ -75,7 +75,7 @@ pipeline {
         sh 'git config user.name "FINT Jenkins"'
         unstash 'consumer'
         sh 'cp -r fint-consumer-metamodell/* . && rm -r fint-consumer-metamodell'
-        sh 'perl -pi -e "s/-resource-model-/-model-/" build.gradle'
+        sh 'sed -i -e "s/-resource-model-/-model-/" build.gradle'
         sh 'git add .'
         sh "git commit -m 'Version ${VERSION}'"
         sh "git push 'https://${GITHUB}@github.com/FINTLabs/fint-consumer-metamodell.git' master:master"
